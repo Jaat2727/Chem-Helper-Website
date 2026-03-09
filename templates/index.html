@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemSAGE - Login & Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Curtain Animation -->
+    <div class="curtain-container" id="curtain">
+        <div class="curtain-panel curtain-left"></div>
+        <div class="curtain-panel curtain-right"></div>
+        <div class="curtain-logo">ChemSAGE</div>
+    </div>
+
+    <div class="container">
+        <!-- Login Form -->
+        <div class="form-box login active" id="login-box">
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Log in to ChemSAGE</p>
+            <form id="login-form">
+                <div class="input-group">
+                    <input type="email" id="login-email" required placeholder=" ">
+                    <label for="login-email">Email Address</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="login-password" required placeholder=" ">
+                    <label for="login-password">Password</label>
+                </div>
+                <div class="error-message" id="login-error"></div>
+                <button type="submit" class="btn">Log In</button>
+            </form>
+            <p class="switch-form">Don't have an account? <a href="#" id="to-register">Sign Up</a></p>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-box register" id="register-box">
+            <h2>Create Account</h2>
+            <p class="subtitle">Join ChemSAGE today</p>
+            <form id="register-form">
+                <div class="input-group">
+                    <input type="email" id="register-email" required placeholder=" ">
+                    <label for="register-email">Email Address</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="register-password" required placeholder=" ">
+                    <label for="register-password">Password</label>
+                </div>
+                <div class="error-message" id="register-error"></div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <p class="switch-form">Already have an account? <a href="#" id="to-login">Log In</a></p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

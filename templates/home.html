@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemSAGE - Home</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base & Typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f0fdf4;
+            /* Very light green background */
+            color: #1f2937;
+            /* Dark gray text */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #ffffff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.05);
+            border-bottom: 1px solid #dcfce7;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #16a34a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid #16a34a;
+            color: #16a34a;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #16a34a;
+            color: #ffffff;
+        }
+
+        .logout-btn {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .logout-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .welcome-section {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(22, 163, 74, 0.05);
+            border: 1px solid #dcfce7;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: #16a34a;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(22, 163, 74, 0.1);
+            border-color: #22c55e;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .feature-desc {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">ChemSAGE</div>
+        <div class="nav-links">
+            <span>{{ email }}</span>
+            <a href="/logout" class="nav-btn logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="welcome-section">
+            <h1>Welcome to Smart Academic Growth Environment!</h1>
+            <p class="subtitle">You have successfully logged in. Select a module below to get started.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">📁</span>
+                <div class="feature-title">Resource Resources</div>
+                <div class="feature-desc">Access study materials, notes, and resources uploaded by students and faculty.
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">📝</span>
+                <div class="feature-title">Question Papers</div>
+                <div class="feature-desc">Browse past year question papers for exam preparation.</div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">📅</span>
+                <div class="feature-title">Timetable & Schedule</div>
+                <div class="feature-desc">View your weekly class schedule and track your self-attendance.</div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">💬</span>
+                <div class="feature-title">Course Groups & Chat</div>
+                <div class="feature-desc">Engage in discussions with your batchmates and communicate directly with
+                    peers.</div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🤝</span>
+                <div class="feature-title">Group Study Planner</div>
+                <div class="feature-desc">Coordinate study sessions and hangouts to build a better learning environment.
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">📌</span>
+                <div class="feature-title">Assignment Tracker</div>
+                <div class="feature-desc">Keep track of upcoming deadlines and assignment statuses.</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
