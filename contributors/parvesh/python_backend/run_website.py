@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'super_secret_chemsage_key')
 
 # Supabase configuration
-url: str = os.getenv("SUPABASE_URL", "https://jrvuwcumnrwwuyqtqnzs.supabase.co")
+url: str = os.getenv("SUPABASE_URL", "https://jrvuwcumnrwvuyqtqnzs.supabase.co")
 key: str = os.getenv("SUPABASE_SECRET_KEY", "sb_secret_HvXWGTLTsrqqtsRNglOXOw_e0yPX-Bk")
 supabase: Client = create_client(url, key)
 
