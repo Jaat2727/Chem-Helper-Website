@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChemSAGE - Login & Register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='website_styling.css') }}">
     <!-- Google Fonts for Modern Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -47,18 +47,27 @@
                     <input type="email" id="register-email" required placeholder=" ">
                     <label for="register-email">Email Address</label>
                 </div>
-                <div class="input-group">
-                    <input type="password" id="register-password" required placeholder=" ">
-                    <label for="register-password">Password</label>
+
+                <div id="otp-section" style="display: none;">
+                    <div class="input-group">
+                        <input type="text" id="register-otp" placeholder=" " maxlength="6">
+                        <label for="register-otp">Enter 6-digit OTP</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="register-password" placeholder=" ">
+                        <label for="register-password">Password</label>
+                    </div>
                 </div>
+
                 <div class="error-message" id="register-error"></div>
-                <button type="submit" class="btn">Register</button>
+                <button type="button" id="send-otp-btn" class="btn" style="margin-bottom: 10px;">Send OTP</button>
+                <button type="submit" id="register-submit-btn" class="btn" style="display: none;">Register</button>
             </form>
             <p class="switch-form">Already have an account? <a href="#" id="to-login">Log In</a></p>
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='website_logic.js') }}"></script>
 </body>
 
 </html>

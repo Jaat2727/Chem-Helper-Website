@@ -88,20 +88,83 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    const registerEmailInput = document.getElementById('register-email');
+    const sendOtpBtn = document.getElementById('send-otp-btn');
+    const otpSection = document.getElementById('otp-section');
+    const registerSubmitBtn = document.getElementById('register-submit-btn');
+
+    sendOtpBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const email = registerEmailInput.value;
+        if (!email) {
+            registerError.style.color = '#ef4444';
+            registerError.innerText = 'Please enter your email first.';
+            return;
+        }
+
+        sendOtpBtn.innerText = "Sending...";
+        sendOtpBtn.disabled = true;
+
+        try {
+            const response = await fetch('/request-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                registerError.style.color = '#10b981';
+                registerError.innerText = data.message;
+                otpSection.style.display = 'block';
+                sendOtpBtn.style.display = 'none';
+                registerSubmitBtn.style.display = 'block';
+                registerEmailInput.disabled = true;
+            } else {
+                registerError.style.color = '#ef4444';
+                registerError.innerText = data.message;
+                sendOtpBtn.innerText = "Send OTP";
+                sendOtpBtn.disabled = false;
+            }
+        } catch (err) {
+            registerError.style.color = '#ef4444';
+            registerError.innerText = 'An error occurred talking to server.';
+            sendOtpBtn.innerText = "Send OTP";
+            sendOtpBtn.disabled = false;
+        }
+    });
+
     // Handle Register Submit
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = document.getElementById('register-email').value;
+        // Since input is disabled, we get value this way
+        const email = registerEmailInput.value;
         const password = document.getElementById('register-password').value;
+        const otp = document.getElementById('register-otp').value;
+
+        if (!password || !otp) {
+            registerError.style.color = '#ef4444';
+            registerError.innerText = 'Please enter password and OTP.';
+            return;
+        }
 
         registerError.innerText = 'Creating account...';
         registerError.style.color = '#94a3b8'; // greyish indicating loading
 
-        sendAuthRequest('/register', { email, password }, registerError, () => {
+        sendAuthRequest('/register', { email, password, otp }, registerError, () => {
             // On successful registration, switch to login view
             toLoginBtn.click();
             loginError.style.color = '#10b981';
             loginError.innerText = 'Registration successful! Please log in.';
+
+            // Reset OTP view for next time
+            otpSection.style.display = 'none';
+            sendOtpBtn.style.display = 'block';
+            registerSubmitBtn.style.display = 'none';
+            registerEmailInput.disabled = false;
+            sendOtpBtn.innerText = "Send OTP";
+            sendOtpBtn.disabled = false;
+            registerForm.reset();
         });
     });
 });
