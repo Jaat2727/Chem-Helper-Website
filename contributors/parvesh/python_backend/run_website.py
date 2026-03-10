@@ -27,7 +27,7 @@ def login():
 
     try:
         # Query user from Supabase
-        response = supabase.table('user').select('*').eq('email', email).execute()
+        response = supabase.table('profiles').select('*').eq('email', email).execute()
         user = response.data[0] if response.data else None
 
         if user and check_password_hash(user['password_hash'], password):
@@ -56,13 +56,13 @@ def register():
 
     try:
         # Check if user already exists
-        response = supabase.table('user').select('id').eq('email', email).execute()
+        response = supabase.table('profiles').select('id').eq('email', email).execute()
         if response.data:
             return jsonify({'message': 'User already exists', 'status': 'error'}), 400
 
         # Hash password and insert into Supabase
         password_hash = generate_password_hash(password)
-        insert_response = supabase.table('user').insert({
+        insert_response = supabase.table('profiles').insert({
             'email': email,
             'password_hash': password_hash
         }).execute()
