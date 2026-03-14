@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FlaskConical, Mail, Lock } from 'lucide-react';
-import MolecularBackground from './MolecularBackground'; 
+import MolecularBackground from './MolecularBackground';
 import './Login.css';
 
 const Login = () => {
@@ -52,16 +52,16 @@ const Login = () => {
 
     return (
         <div className="login-fullscreen-container">
-            
+
             {/* The interactive canvas stays in the background */}
             <MolecularBackground />
 
             {/* Centered stage for the main UI */}
             <div className="center-stage">
-                
+
                 {/* The new unified glass interface window */}
                 <div className="premium-glass-window">
-                    
+
                     {/* Left Side: Branding & Welcome */}
                     <div className="window-left">
                         <div className="hero-badge">
@@ -71,7 +71,7 @@ const Login = () => {
 
                         <div className="hero-brand">
                             <div className="icon-glow">
-                                <FlaskConical size={32} color="#60a5fa" strokeWidth={2.5} />
+                                <FlaskConical size={32} color="#3b82f6" strokeWidth={2.5} />
                             </div>
                             <h1>ChemSAGE</h1>
                         </div>
@@ -142,15 +142,6 @@ const Login = () => {
 
                                 <button type="submit" className="btn-primary" disabled={isLoading}>
                                     {isLoading ? "Processing..." : (isLogin ? "Sign In" : "Sign Up")}
-                                </button>
-
-                                <div className="divider">
-                                    <span>or continue with</span>
-                                </div>
-
-                                <button type="button" className="btn-google">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" width="18" height="18" />
-                                    Sign in with Google
                                 </button>
 
                                 <div className="auth-switch">

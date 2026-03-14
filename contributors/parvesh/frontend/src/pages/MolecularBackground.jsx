@@ -8,7 +8,7 @@ const MolecularBackground = () => {
         const ctx = canvas.getContext('2d');
         let animationFrameId;
         let molecules = [];
-        let atoms = []; 
+        let atoms = [];
 
         const resize = () => {
             canvas.width = window.innerWidth;
@@ -27,10 +27,10 @@ const MolecularBackground = () => {
             y: window.innerHeight / 2,
             targetX: window.innerWidth / 2,
             targetY: window.innerHeight / 2,
-            radius: 200, 
+            radius: 200,
             isClicked: false,
-            draggedAtom: null, 
-            energyLevel: 0.01 
+            draggedAtom: null,
+            energyLevel: 0.01
         };
 
         const handleMouseMove = (e) => {
@@ -43,20 +43,20 @@ const MolecularBackground = () => {
             }
         };
 
-        const handleMouseDown = (e) => { 
+        const handleMouseDown = (e) => {
             for (let atom of atoms) {
                 const dist = Math.sqrt((mouse.targetX - atom.x) ** 2 + (mouse.targetY - atom.y) ** 2);
-                if (dist < 100) { 
+                if (dist < 100) {
                     mouse.draggedAtom = atom;
-                    return; 
+                    return;
                 }
             }
-            mouse.isClicked = true; 
+            mouse.isClicked = true;
         };
 
-        const handleMouseUp = () => { 
-            mouse.isClicked = false; 
-            mouse.draggedAtom = null; 
+        const handleMouseUp = () => {
+            mouse.isClicked = false;
+            mouse.draggedAtom = null;
         };
 
         window.addEventListener('resize', resize);
@@ -64,29 +64,28 @@ const MolecularBackground = () => {
         window.addEventListener('mousedown', handleMouseDown);
         window.addEventListener('mouseup', handleMouseUp);
 
-        // --- 1. THE DRAGGABLE QUANTUM ATOMS ---
         class QuantumAtom {
             constructor(startX, startY) {
-                this.time = Math.random() * 100; 
+                this.time = Math.random() * 100;
                 this.anchorX = startX;
                 this.anchorY = startY;
                 this.x = startX;
                 this.y = startY;
-                
+
                 this.electronAngles = [0, Math.PI / 2, Math.PI];
-                this.orbitRotations = [0, Math.PI / 3, (2 * Math.PI) / 3]; 
+                this.orbitRotations = [0, Math.PI / 3, (2 * Math.PI) / 3];
             }
 
             draw() {
                 this.time += 0.005;
-                this.baseRadiusX = Math.min(canvas.width, canvas.height) * 0.12; 
-                this.baseRadiusY = this.baseRadiusX * 0.35; 
+                this.baseRadiusX = Math.min(canvas.width, canvas.height) * 0.12;
+                this.baseRadiusY = this.baseRadiusX * 0.35;
 
                 if (mouse.draggedAtom === this) {
                     this.x = this.anchorX;
                     this.y = this.anchorY;
                 } else {
-                    this.x = this.anchorX + Math.sin(this.time) * 15; 
+                    this.x = this.anchorX + Math.sin(this.time) * 15;
                     this.y = this.anchorY + Math.cos(this.time * 0.8) * 15;
                 }
 
@@ -100,17 +99,17 @@ const MolecularBackground = () => {
                 const dynamicRadiusY = Math.max(20, this.baseRadiusY + tiltY);
 
                 const distToCenter = Math.sqrt((mouse.x - this.x) ** 2 + (mouse.y - this.y) ** 2);
-                let targetEnergy = 0.003; 
+                let targetEnergy = 0.003;
                 if (mouse.draggedAtom === this || distToCenter < this.baseRadiusX * 2 || mouse.isClicked) {
-                    targetEnergy = (mouse.draggedAtom === this || mouse.isClicked) ? 0.08 : 0.03; 
+                    targetEnergy = (mouse.draggedAtom === this || mouse.isClicked) ? 0.08 : 0.03;
                 }
-                mouse.energyLevel += (targetEnergy - mouse.energyLevel) * 0.05; 
+                mouse.energyLevel += (targetEnergy - mouse.energyLevel) * 0.05;
 
                 ctx.beginPath();
                 ctx.arc(this.x - tiltX, this.y - tiltY, 12, 0, Math.PI * 2);
-                
-                ctx.fillStyle = mouse.draggedAtom === this ? '#ffffff' : 'rgba(96, 165, 250, 0.9)';
-                ctx.shadowBlur = mouse.draggedAtom === this ? 60 : 40;
+
+                ctx.fillStyle = mouse.draggedAtom === this ? '#2563eb' : '#3b82f6';
+                ctx.shadowBlur = mouse.draggedAtom === this ? 40 : 20;
                 ctx.shadowColor = '#60a5fa';
                 ctx.fill();
                 ctx.shadowBlur = 0;
@@ -122,7 +121,7 @@ const MolecularBackground = () => {
 
                     ctx.beginPath();
                     ctx.ellipse(0, 0, this.baseRadiusX, dynamicRadiusY, 0, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(148, 163, 184, ${0.3 + mouse.energyLevel})`; 
+                    ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 + mouse.energyLevel})`;
                     ctx.lineWidth = 2.5;
                     ctx.stroke();
 
@@ -132,22 +131,19 @@ const MolecularBackground = () => {
 
                     ctx.beginPath();
                     ctx.arc(ex, ey, 6, 0, Math.PI * 2);
-                    ctx.fillStyle = '#ffffff';
-                    ctx.shadowBlur = 20;
-                    ctx.shadowColor = '#60a5fa';
+                    ctx.fillStyle = '#1d4ed8';
                     ctx.fill();
-                    
+
                     ctx.restore();
                 }
             }
         }
 
-        // --- 2. MOLECULES ---
         const colors = [
-            'rgba(239, 68, 68, 0.8)',  // Red 
-            'rgba(255, 255, 255, 0.8)',// White 
-            'rgba(59, 130, 246, 0.8)', // Blue 
-            'rgba(16, 185, 129, 0.8)'  // Green 
+            'rgba(59, 130, 246, 0.7)',
+            'rgba(14, 165, 233, 0.7)',
+            'rgba(99, 102, 241, 0.7)',
+            'rgba(148, 163, 184, 0.8)'
         ];
 
         class Molecule {
@@ -159,13 +155,13 @@ const MolecularBackground = () => {
                 this.angle = Math.random() * Math.PI * 2;
                 this.spin = (Math.random() - 0.5) * 0.01;
                 this.size = Math.random() * 2 + 1.5;
-                
+
                 const rand = Math.random();
-                if (rand < 0.60) this.type = 'single';      
-                else if (rand < 0.80) this.type = 'bent';   
-                else if (rand < 0.95) this.type = 'linear'; 
-                else this.type = 'ring';                    
-                
+                if (rand < 0.60) this.type = 'single';
+                else if (rand < 0.80) this.type = 'bent';
+                else if (rand < 0.95) this.type = 'linear';
+                else this.type = 'ring';
+
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
 
@@ -196,13 +192,16 @@ const MolecularBackground = () => {
                 ctx.arc(px, py, radius, 0, Math.PI * 2);
                 ctx.fillStyle = col;
                 ctx.fill();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
             }
 
             drawBond(x1, y1, x2, y2) {
                 ctx.beginPath();
                 ctx.moveTo(x1, y1);
                 ctx.lineTo(x2, y2);
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.strokeStyle = 'rgba(148, 163, 184, 0.4)';
                 ctx.lineWidth = 2.5;
                 ctx.stroke();
             }
@@ -216,16 +215,16 @@ const MolecularBackground = () => {
 
                 if (this.type === 'single') {
                     this.drawAtom(0, 0, this.size * 1.5, this.color);
-                } 
+                }
                 else if (this.type === 'linear') {
                     this.drawBond(-bondLen, 0, bondLen, 0);
-                    this.drawAtom(0, 0, this.size * 1.2, this.color); 
-                    this.drawAtom(-bondLen, 0, this.size * 0.9, 'rgba(255,255,255,0.9)'); 
-                    this.drawAtom(bondLen, 0, this.size * 0.9, 'rgba(255,255,255,0.9)');  
-                } 
+                    this.drawAtom(0, 0, this.size * 1.2, this.color);
+                    this.drawAtom(-bondLen, 0, this.size * 0.9, 'rgba(255, 255, 255, 0.9)');
+                    this.drawAtom(bondLen, 0, this.size * 0.9, 'rgba(255, 255, 255, 0.9)');
+                }
                 else if (this.type === 'bent') {
-                    const angle1 = Math.PI / 4; 
-                    const angle2 = (3 * Math.PI) / 4; 
+                    const angle1 = Math.PI / 4;
+                    const angle2 = (3 * Math.PI) / 4;
                     const bx1 = Math.cos(angle1) * bondLen;
                     const by1 = Math.sin(angle1) * bondLen;
                     const bx2 = Math.cos(angle2) * bondLen;
@@ -233,10 +232,10 @@ const MolecularBackground = () => {
 
                     this.drawBond(0, 0, bx1, by1);
                     this.drawBond(0, 0, bx2, by2);
-                    this.drawAtom(0, 0, this.size * 1.5, this.color); 
-                    this.drawAtom(bx1, by1, this.size * 0.8, 'rgba(255,255,255,0.9)'); 
-                    this.drawAtom(bx2, by2, this.size * 0.8, 'rgba(255,255,255,0.9)'); 
-                } 
+                    this.drawAtom(0, 0, this.size * 1.5, this.color);
+                    this.drawAtom(bx1, by1, this.size * 0.8, 'rgba(255, 255, 255, 0.9)');
+                    this.drawAtom(bx2, by2, this.size * 0.8, 'rgba(255, 255, 255, 0.9)');
+                }
                 else if (this.type === 'ring') {
                     ctx.beginPath();
                     for (let i = 0; i < 6; i++) {
@@ -249,11 +248,11 @@ const MolecularBackground = () => {
                     ctx.strokeStyle = this.color;
                     ctx.lineWidth = 2.5;
                     ctx.stroke();
-                    
+
                     for (let i = 0; i < 6; i++) {
                         const px = bondLen * 1.5 * Math.cos((i * Math.PI) / 3);
                         const py = bondLen * 1.5 * Math.sin((i * Math.PI) / 3);
-                        this.drawAtom(px, py, this.size * 0.6, 'rgba(255,255,255,0.8)');
+                        this.drawAtom(px, py, this.size * 0.6, 'rgba(255, 255, 255, 0.9)');
                     }
                 }
                 ctx.restore();
@@ -262,8 +261,7 @@ const MolecularBackground = () => {
 
         const initMolecules = () => {
             molecules = [];
-            // INCREASED DENSITY: Lowered divisor from 35000 to 22000
-            const count = Math.floor((canvas.width * canvas.height) / 22000); 
+            const count = Math.floor((canvas.width * canvas.height) / 22000);
             for (let i = 0; i < count; i++) {
                 molecules.push(new Molecule());
             }
@@ -274,13 +272,13 @@ const MolecularBackground = () => {
                 const dx = molecules[i].x - mouse.x;
                 const dy = molecules[i].y - mouse.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                
+
                 if (dist < mouse.radius) {
                     ctx.beginPath();
                     ctx.moveTo(molecules[i].x, molecules[i].y);
                     ctx.lineTo(mouse.x, mouse.y);
-                    ctx.strokeStyle = `rgba(96, 165, 250, ${(1 - dist / mouse.radius) * 0.8})`;
-                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = `rgba(59, 130, 246, ${(1 - dist / mouse.radius) * 0.3})`;
+                    ctx.lineWidth = 1.5;
                     ctx.stroke();
                 }
             }
@@ -307,8 +305,8 @@ const MolecularBackground = () => {
 
         const animate = () => {
             if (atoms.length === 0) {
-                atoms.push(new QuantumAtom(window.innerWidth * 0.1, window.innerHeight * 0.2)); 
-                atoms.push(new QuantumAtom(window.innerWidth * 0.9, window.innerHeight * 0.8)); 
+                atoms.push(new QuantumAtom(window.innerWidth * 0.1, window.innerHeight * 0.2));
+                atoms.push(new QuantumAtom(window.innerWidth * 0.9, window.innerHeight * 0.8));
             }
 
             mouse.x += (mouse.targetX - mouse.x) * 0.1;
@@ -316,28 +314,25 @@ const MolecularBackground = () => {
 
             updateCursor();
 
-            ctx.fillStyle = '#020617'; 
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+            // FIXED: Added more depth to the background gradient so the glass has something to blur
             const gradient = ctx.createRadialGradient(
                 canvas.width / 2, canvas.height / 2, 0,
                 canvas.width / 2, canvas.height / 2, canvas.width > canvas.height ? canvas.width : canvas.height
             );
-            gradient.addColorStop(0, 'rgba(15, 23, 42, 0.4)');
-            gradient.addColorStop(1, 'rgba(2, 6, 23, 0.9)');
+            gradient.addColorStop(0, '#e0f2fe'); // Soft pale blue core
+            gradient.addColorStop(1, '#f1f5f9'); // Slate edge
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             atoms.forEach(atom => atom.draw());
-
             molecules.forEach(m => m.update());
             drawCursorInteractions();
 
             animationFrameId = requestAnimationFrame(animate);
         };
 
-        resize(); 
-        animate(); 
+        resize();
+        animate();
 
         return () => {
             window.removeEventListener('resize', resize);
@@ -349,8 +344,8 @@ const MolecularBackground = () => {
     }, []);
 
     return (
-        <canvas 
-            ref={canvasRef} 
+        <canvas
+            ref={canvasRef}
             style={{
                 position: 'absolute',
                 top: 0,
@@ -358,7 +353,7 @@ const MolecularBackground = () => {
                 width: '100%',
                 height: '100%',
                 zIndex: 0,
-                pointerEvents: 'auto' 
+                pointerEvents: 'auto'
             }}
         />
     );

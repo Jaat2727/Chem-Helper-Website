@@ -12,12 +12,11 @@
     position: relative;
     display: flex;
     font-family: 'Inter', 'DM Sans', sans-serif;
-    color: white;
+    color: #0f172a;
     overflow: hidden;
-    background-color: #020617;
+    background-color: #f1f5f9;
 }
 
-/* Centers the UI over the background */
 .center-stage {
     position: relative;
     z-index: 10;
@@ -27,34 +26,34 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    pointer-events: none; /* Lets mouse interact with canvas where empty */
+    pointer-events: none;
 }
 
 /* =========================================
-   THE UNIFIED GLASS WINDOW
+   TRUE GLASSMORPHISM WINDOW (More Transparent)
    ========================================= */
 .premium-glass-window {
     display: flex;
     width: 100%;
     max-width: 1100px;
     min-height: 600px;
-    background: rgba(15, 23, 42, 0.4); /* Darker frost base */
+
+    /* Lowered from 0.25 to 0.12 for higher transparency */
+    background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    
-    /* Edge lighting for 3D glass effect */
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    border-left: 1px solid rgba(255, 255, 255, 0.12);
-    
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+
     border-radius: 32px;
-    box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5), 
-                inset 0 0 40px rgba(255,255,255,0.02);
-    
-    pointer-events: auto; /* Re-enables interaction for the window */
+    box-shadow: 0 16px 40px rgba(14, 165, 233, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+
+    pointer-events: auto;
     overflow: hidden;
-    
-    /* Entrance Animation */
+
     opacity: 0;
     transform: scale(0.95) translateY(20px);
     animation: windowEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -67,7 +66,6 @@
     }
 }
 
-/* --- Left Side: Branding --- */
 .window-left {
     flex: 1;
     padding: 60px;
@@ -77,7 +75,6 @@
     position: relative;
 }
 
-/* Subtle separator line between left and right */
 .window-left::after {
     content: '';
     position: absolute;
@@ -85,7 +82,7 @@
     top: 10%;
     height: 80%;
     width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent);
+    background: linear-gradient(to bottom, transparent, rgba(148, 163, 184, 0.3), transparent);
 }
 
 .hero-badge {
@@ -93,29 +90,38 @@
     align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 100px;
     font-size: 12px;
     font-weight: 600;
-    color: #93c5fd;
+    color: #2563eb;
     margin-bottom: 32px;
     width: fit-content;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .badge-dot {
     width: 6px;
     height: 6px;
-    background: #60a5fa;
+    background: #3b82f6;
     border-radius: 50%;
-    box-shadow: 0 0 10px #60a5fa;
+    box-shadow: 0 0 10px #3b82f6;
     animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.7); }
-    70% { box-shadow: 0 0 0 6px rgba(96, 165, 250, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba(59, 130, 246, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
 }
 
 .hero-brand {
@@ -131,10 +137,10 @@
     justify-content: center;
     width: 54px;
     height: 54px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.9);
     border-radius: 14px;
-    box-shadow: 0 0 20px rgba(96, 165, 250, 0.15);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
 .hero-brand h1 {
@@ -142,7 +148,7 @@
     font-size: 28px;
     font-weight: 700;
     letter-spacing: -0.5px;
-    color: #ffffff;
+    color: #0f172a;
 }
 
 .hero-title {
@@ -152,19 +158,18 @@
     line-height: 1.1;
     letter-spacing: -1px;
     margin-bottom: 24px;
-    background: linear-gradient(to right bottom, #ffffff, #94a3b8);
+    background: linear-gradient(to right bottom, #0f172a, #2563eb);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero-description {
     font-size: 16px;
-    color: #94a3b8;
+    color: #475569;
     line-height: 1.6;
     max-width: 90%;
 }
 
-/* --- Right Side: Form Panel --- */
 .window-right {
     flex: 1;
     padding: 40px;
@@ -173,13 +178,20 @@
     justify-content: center;
 }
 
+/* =========================================
+   FROSTED INNER FORM PANEL (More Transparent)
+   ========================================= */
 .form-panel {
     width: 100%;
     max-width: 400px;
-    background: rgba(0, 0, 0, 0.2); /* Dark inner well for the form */
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Lowered from 0.6 to 0.35 */
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 24px;
     padding: 40px 32px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
 .panel-header {
@@ -190,10 +202,11 @@
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 6px;
+    color: #0f172a;
 }
 
 .panel-header p {
-    color: #94a3b8;
+    color: #64748b;
     font-size: 14px;
 }
 
@@ -205,9 +218,9 @@
 
 .form-group label {
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 8px;
-    color: #cbd5e1;
+    color: #334155;
 }
 
 .input-wrapper {
@@ -225,29 +238,46 @@
 
 .form-group input {
     width: 100%;
-    padding: 12px 16px 12px 42px; 
-    background: rgba(255, 255, 255, 0.03); 
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 16px 12px 42px;
+    /* Lowered from 0.8 to 0.55 for transparent input wells */
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(203, 213, 225, 0.6);
     border-radius: 12px;
     font-size: 14px;
-    color: #ffffff;
+    color: #0f172a;
     outline: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .form-group input::placeholder {
-    color: #475569;
+    color: #64748b;
 }
 
 .form-group input:focus {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: #60a5fa;
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-.form-group input:focus + .input-icon,
+.form-group input:focus+.input-icon,
 .input-wrapper:focus-within .input-icon {
-    color: #60a5fa;
+    color: #3b82f6;
+}
+
+/* Browser autofill handling */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.9) inset !important;
+    -webkit-text-fill-color: #0f172a !important;
+    caret-color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+}
+
+.input-wrapper:has(input:-webkit-autofill) .input-icon {
+    color: #3b82f6 !important;
 }
 
 .form-options {
@@ -263,31 +293,30 @@
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #94a3b8;
+    color: #475569;
     cursor: pointer;
 }
 
 .forgot-password {
     background: none;
     border: none;
-    color: #60a5fa;
+    color: #3b82f6;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
 }
 
 .forgot-password:hover {
-    color: #93c5fd;
+    color: #2563eb;
     text-decoration: underline;
 }
 
-/* Button with Light Sweep */
 .btn-primary {
     position: relative;
     overflow: hidden;
     width: 100%;
     padding: 12px;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
     color: white;
     border: none;
     border-radius: 12px;
@@ -295,7 +324,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-primary::after {
@@ -305,13 +334,13 @@
     left: -100%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
     transform: skewX(-25deg);
     transition: 0.6s ease-in-out;
 }
 
 .btn-primary:hover {
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
     transform: translateY(-1px);
 }
 
@@ -323,62 +352,18 @@
     transform: translateY(0) scale(0.98);
 }
 
-.divider {
-    display: flex;
-    align-items: center;
-    margin: 24px 0;
-    color: #64748b;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.divider::before,
-.divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.divider span {
-    padding: 0 12px;
-}
-
-.btn-google {
-    width: 100%;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: #e2e8f0;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.2s;
-}
-
-.btn-google:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
 .auth-switch {
     margin-top: 24px;
     text-align: center;
     font-size: 13px;
-    color: #94a3b8;
+    color: #64748b;
 }
 
 .auth-switch button {
     background: none;
     border: none;
-    color: #ffffff;
-    font-weight: 500;
+    color: #0f172a;
+    font-weight: 600;
     cursor: pointer;
     font-size: 13px;
     margin-left: 6px;
@@ -387,7 +372,7 @@
 }
 
 .auth-switch button:hover {
-    color: #60a5fa;
+    color: #3b82f6;
 }
 
 .message-solid {
@@ -399,33 +384,33 @@
 }
 
 .message-solid.error {
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #b91c1c;
 }
 
 .message-solid.success {
-    background: rgba(16, 185, 129, 0.15);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    color: #6ee7b7;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #047857;
 }
 
-/* --- Mobile Responsiveness --- */
 @media (max-width: 900px) {
     .premium-glass-window {
         flex-direction: column;
         max-width: 500px;
         border-radius: 24px;
+        background: rgba(255, 255, 255, 0.35);
     }
-    
+
     .window-left {
         padding: 40px 30px 20px;
         text-align: center;
         align-items: center;
     }
-    
+
     .window-left::after {
-        display: none; /* Hide separator on mobile */
+        display: none;
     }
 
     .hero-title {
@@ -435,10 +420,12 @@
     .window-right {
         padding: 20px 30px 40px;
     }
-    
+
     .form-panel {
         padding: 30px 24px;
         background: transparent;
         border: none;
+        box-shadow: none;
+        backdrop-filter: none;
     }
 }
