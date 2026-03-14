@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+websockets
+supabase
+python-dotenv
+starlette
+itsdangerous
+werkzeug
+python-multipart
