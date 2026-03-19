@@ -6,7 +6,7 @@ import {
     Users, Bookmark, LogOut, ChevronRight,
     Activity, BookOpen, Shield, Bell, Search
 } from 'lucide-react';
-import './Dashboard.css';
+import './DashboardRedesign.css';
 
 
 // Demo user data (replace with real user context if available)
@@ -25,34 +25,15 @@ const quickActions = [
     { label: "Upload File", icon: <Folder size={18} />, onClick: () => alert("Upload File action") }
 ];
 
-const metrics = [
-    {
-        label: "Study Streak",
-        value: "12 days",
-        change: "+3 vs last week",
-        tone: "positive"
-    },
-    {
-        label: "Hours This Week",
-        value: "18.5h",
-        change: "+2.5h above avg",
-        tone: "neutral"
-    },
-    {
-        label: "Tasks Completed",
-        value: "34 / 40",
-        change: "85% completion",
-        tone: "positive"
-    }
-];
+
 
 const features = [
-    { icon: <Folder size={24} />, title: "Study Vault", desc: "Access curated notes, premium assets, and laboratory resources.", color: "#10b981", bg: "rgba(16, 185, 129, 0.15)", link: "/study-vault" },
-    { icon: <FileText size={24} />, title: "Exam Archive", desc: "Review historic question papers and high-yield assessment materials.", color: "#8b5cf6", bg: "rgba(139, 92, 246, 0.15)", link: "/exam-archive" },
-    { icon: <Calendar size={24} />, title: "Schedule Manager", desc: "Track class timings and monitor your academic sessions.", color: "#f59e0b", bg: "rgba(245, 158, 11, 0.15)", link: "/schedule" },
-    { icon: <MessageCircle size={24} />, title: "Network Hub", desc: "Collaborate and synchronize with your academic peer group in real-time.", color: "#0ea5e9", bg: "rgba(14, 165, 233, 0.15)", link: "/network" },
-    { icon: <Users size={24} />, title: "Synergy Groups", desc: "Coordinate advanced study sessions and group projects.", color: "#ec4899", bg: "rgba(236, 72, 153, 0.15)", link: "/groups" },
-    { icon: <Bookmark size={24} />, title: "Task Terminal", desc: "Optimize your workflow with prioritized assignment tracking.", color: "#6366f1", bg: "rgba(99, 102, 241, 0.15)", link: "/tasks" }
+    { icon: <Folder size={24} />, title: "Study Vault", desc: "Access curated notes, premium assets, and laboratory resources.", color: "#059669", bg: "rgba(16, 185, 129, 0.1)", link: "/study-vault" },
+    { icon: <FileText size={24} />, title: "Exam Archive", desc: "Review historic question papers and high-yield assessment materials.", color: "#7c3aed", bg: "rgba(139, 92, 246, 0.1)", link: "/exam-archive" },
+    { icon: <Calendar size={24} />, title: "Schedule Manager", desc: "Track class timings and monitor your academic sessions.", color: "#d97706", bg: "rgba(245, 158, 11, 0.1)", link: "/schedule" },
+    { icon: <MessageCircle size={24} />, title: "Network Hub", desc: "Collaborate and synchronize with your academic peer group in real-time.", color: "#0284c7", bg: "rgba(14, 165, 233, 0.1)", link: "/network" },
+    { icon: <Users size={24} />, title: "Synergy Groups", desc: "Coordinate advanced study sessions and group projects.", color: "#db2777", bg: "rgba(236, 72, 153, 0.1)", link: "/groups" },
+    { icon: <Bookmark size={24} />, title: "Task Terminal", desc: "Optimize your workflow with prioritized assignment tracking.", color: "#4f46e5", bg: "rgba(99, 102, 241, 0.1)", link: "/tasks" }
 ];
 
 const Dashboard = () => {
@@ -103,6 +84,10 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard-wrapper">
+            <div className="ambient-orb orb-1"></div>
+            <div className="ambient-orb orb-2"></div>
+            <div className="ambient-orb orb-3"></div>
+            <div className="ambient-orb orb-4"></div>
             <div className="dashboard-shell">
                 <aside className="sidebar" aria-label="Main navigation">
                     <div className="sidebar-top">
@@ -176,21 +161,7 @@ const Dashboard = () => {
                         </div>
                     </header>
 
-                    <section className="shell-stats" aria-label="Study overview">
-                        {metrics.map((metric, idx) => (
-                            <motion.div
-                                key={metric.label}
-                                className={`stat-card stat-tone-${metric.tone}`}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.05 * idx }}
-                            >
-                                <div className="stat-label">{metric.label}</div>
-                                <div className="stat-value">{metric.value}</div>
-                                <div className="stat-change">{metric.change}</div>
-                            </motion.div>
-                        ))}
-                    </section>
+
 
                     <section className="shell-main-grid">
                         <div className="panel">
@@ -217,11 +188,11 @@ const Dashboard = () => {
                                                 '--theme-color': feature.color,
                                                 '--theme-bg': feature.bg
                                             }}
-                                            initial={{ opacity: 0, y: 18 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.06 * idx }}
-                                            whileHover={{ y: -6 }}
-                                            whileTap={{ scale: 0.97 }}
+                                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                                            transition={{ delay: 0.1 * idx, type: "spring", damping: 15 }}
+                                            whileHover={{ y: -8, scale: 1.02 }}
+                                            whileTap={{ scale: 0.95 }}
                                             onClick={() => navigate(feature.link)}
                                         >
                                             <div className="card-icon-wrapper">
@@ -276,9 +247,10 @@ const Dashboard = () => {
                                         <motion.div
                                             key={idx}
                                             className="activity-row"
-                                            initial={{ opacity: 0, y: 6 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.05 * idx }}
+                                            initial={{ opacity: 0, x: -15 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.1 * idx, type: "tween" }}
+                                            whileHover={{ x: 5 }}
                                         >
                                             <div className="activity-dot"></div>
                                             <div className="activity-main">
